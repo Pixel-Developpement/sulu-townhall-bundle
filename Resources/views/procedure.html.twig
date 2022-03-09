@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    {%  if not procedure.state %}
+        <p>{{ "alert.message"|trans }}</p>
+    {% endif %}
+    <h1>{{ procedure.title }}</h1>
+    
+    {% if procedure.cover %}
+        {%  set media = sulu_resolve_media(procedure.cover.id, 'fr') %}
+        <img src="{{ media.thumbnails['600x400'] }}" title="{{ media.title }}">
+    {% endif %}
+    {{ procedure.description|raw }}
+    {% if procedure.externalLink %}<p>{{ "externalLink"|trans }} : <a href="{{ procedure.externalLink }}">{{ procedure.externalLink }}</a></p>{% endif %}
+{% endblock %}
