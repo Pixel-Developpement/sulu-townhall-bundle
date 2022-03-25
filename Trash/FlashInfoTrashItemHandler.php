@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Pixel\TownHallBundle\Trash;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Pixel\TownHallBundle\Admin\ReportAdmin;
-use Pixel\TownHallBundle\Domain\Event\ReportRestoreEvent;
-use Pixel\TownHallBundle\Entity\Report;
+use Pixel\TownHallBundle\Admin\FlashInfoAdmin;
+use Pixel\TownHallBundle\Domain\Event\FlashInfoRestoredEvent;
+use Pixel\TownHallBundle\Entity\FlashInfo;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\TrashBundle\Application\DoctrineRestoreHelper\DoctrineRestoreHelperInterface;
@@ -18,7 +18,7 @@ use Sulu\Bundle\TrashBundle\Application\TrashItemHandler\StoreTrashItemHandlerIn
 use Sulu\Bundle\TrashBundle\Domain\Model\TrashItemInterface;
 use Sulu\Bundle\TrashBundle\Domain\Repository\TrashItemRepositoryInterface;
 
-class ReportTrashItemHandler implements StoreTrashItemHandlerInterface, RestoreTrashItemHandlerInterface, RestoreConfigurationProviderInterface
+class FlashInfoTrashItemHandler implements StoreTrashItemHandlerInterface, RestoreTrashItemHandlerInterface, RestoreConfigurationProviderInterface
 {
     private TrashItemRepositoryInterface $trashItemRepository;
     private EntityManagerInterface $entityManager;
@@ -40,29 +40,30 @@ class ReportTrashItemHandler implements StoreTrashItemHandlerInterface, RestoreT
 
     public static function getResourceKey(): string
     {
-        return Report::RESOURCE_KEY;
+        return FlashInfo::RESOURCE_KEY;
     }
 
     public function store(object $resource, array $options = []): TrashItemInterface
     {
-        $document = $resource->getDocument();
+        $cover = $resource->getCover();
 
         $data = [
             "title" => $resource->getTitle(),
-            "dateReport" => $resource->getDateReport(),
-            "documentId" => $document ? $document->getId() : null,
             "description" => $resource->getDescription(),
+            "coverId" => $cover ? $cover->getId() : null,
+            "documents" => $resource->getPdfs(),
             "isActive" => $resource->getIsActive(),
+            "publishedAt" => $resource->getPublishedAt()
         ];
 
         return $this->trashItemRepository->create(
-            Report::RESOURCE_KEY,
+            FlashInfo::RESOURCE_KEY,
             (string)$resource->getId(),
             $resource->getTitle(),
             $data,
             null,
             $options,
-            Report::SECURITY_CONTEXT,
+            FlashInfo::SECURITY_CONTEXT,
             null,
             null
         );
@@ -71,26 +72,28 @@ class ReportTrashItemHandler implements StoreTrashItemHandlerInterface, RestoreT
     public function restore(TrashItemInterface $trashItem, array $restoreFormData = []): object
     {
         $data = $trashItem->getRestoreData();
-        $reportId = (int)$trashItem->getResourceId();
-        
-        $report = new Report();
-        $report->setTitle($data['title']);
-        $report->setDateReport(new \DateTimeImmutable($data['dateReport']['date']));
-        if ($data['documentId']) {
-            $report->setDocument($this->entityManager->find(MediaInterface::class, $data['documentId']));
+        $flashInfoId = (int)$trashItem->getResourceId();
+        $flashInfo = new FlashInfo();
+        $flashInfo->setTitle($data['title']);
+        $flashInfo->setDescription($data['description']);
+        $flashInfo->setCover($this->entityManager->find(MediaInterface::class, $data['coverId']));
+        if(isset($data['documents'])){
+            $flashInfo->setPdfs($data['documents']);
         }
-        $report->setDescription($data['description']);
-        $report->setIsActive($data['isActive']);
+        $flashInfo->setIsActive($data['isActive']);
+        /*if(isset($data['publishedAt'])){
+            $flashInfo->setPublishedAt(new \DateTimeImmutable($data['publishedAt']['date']));
+        }*/
         $this->domainEventCollector->collect(
-            new ReportRestoreEvent($report, $data)
+            new FlashInfoRestoredEvent($flashInfo, $data)
         );
 
-        $this->doctrineRestoreHelper->persistAndFlushWithId($report, $reportId);
-        return $report;
+        $this->doctrineRestoreHelper->persistAndFlushWithId($flashInfo, $flashInfoId);
+        return $flashInfo;
     }
 
     public function getConfiguration(): RestoreConfiguration
     {
-        return new RestoreConfiguration(null, ReportAdmin::EDIT_FORM_VIEW, ['id' => 'id']);
+        return new RestoreConfiguration(null, FlashInfoAdmin::EDIT_FORM_VIEW, ['id' => 'id']);
     }
 }

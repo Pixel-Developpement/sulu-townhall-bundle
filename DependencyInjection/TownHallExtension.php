@@ -3,9 +3,11 @@
 namespace Pixel\TownHallBundle\DependencyInjection;
 
 use Pixel\TownHallBundle\Admin\BulletinAdmin;
+use Pixel\TownHallBundle\Admin\FlashInfoAdmin;
 use Pixel\TownHallBundle\Admin\ProcedureAdmin;
 use Pixel\TownHallBundle\Admin\ReportAdmin;
 use Pixel\TownHallBundle\Entity\Bulletin;
+use Pixel\TownHallBundle\Entity\FlashInfo;
 use Pixel\TownHallBundle\Entity\Procedure;
 use Pixel\TownHallBundle\Entity\Report;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
@@ -61,6 +63,12 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                             'routes' => [
                                 'detail' => 'townhall.get_procedure',
                                 'list' => 'townhall.get_procedures',
+                            ],
+                        ],
+                        'flash_infos' => [
+                            'routes' => [
+                                'detail' => 'townhall.get_flash-info',
+                                'list' => 'townhall.get_flash-infos',
                             ],
                         ],
                     ],
@@ -126,6 +134,26 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                                     ],
                                 ],
                             ],
+                            'flash-info_selection' => [
+                                'default_type' => 'list_overlay',
+                                'resource_key' => FlashInfo::RESOURCE_KEY,
+                                'view' => [
+                                    'name' => FlashInfoAdmin::EDIT_FORM_VIEW,
+                                    'result_to_view' => [
+                                        'id' => 'id',
+                                    ],
+                                ],
+                                'types' => [
+                                    'list_overlay' => [
+                                        'adapter' => 'table',
+                                        'list_key' => FlashInfo::LIST_KEY,
+                                        'display_properties' => ['title'],
+                                        'icon' => 'fa-map',
+                                        'label' => 'townhall.flash_info',
+                                        'overlay_title' => 'townhall_flash_info.list',
+                                    ],
+                                ],
+                            ]
                         ],
                         'single_selection' => [
                             'single_report_selection' => [
@@ -200,6 +228,30 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                                     ],
                                 ],
                             ],
+                            'single_flash-info_selection' => [
+                                'default_type' => 'list_overlay',
+                                'resource_key' => FlashInfo::RESOURCE_KEY,
+                                'view' => [
+                                    'name' => FlashInfoAdmin::EDIT_FORM_VIEW,
+                                    'result_to_view' => [
+                                        'id' => 'id',
+                                    ],
+                                ],
+                                'types' => [
+                                    'list_overlay' => [
+                                        'adapter' => 'table',
+                                        'list_key' => FlashInfo::LIST_KEY,
+                                        'display_properties' => ['title'],
+                                        'icon' => 'fa-map',
+                                        'empty_text' => 'townhall_flash_info.empty',
+                                        'overlay_title' => 'townhall_flash_info.list',
+                                    ],
+                                    'auto_complete' => [
+                                        'display_property' => 'title',
+                                        'search_properties' => ['title'],
+                                    ],
+                                ],
+                            ]
                         ],
                     ],
                 ]

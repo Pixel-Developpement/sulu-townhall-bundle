@@ -12,10 +12,11 @@ use FOS\RestBundle\View\ViewHandlerInterface;
 use HandcraftedInTheAlps\RestRoutingBundle\Controller\Annotations\RouteResource;
 use HandcraftedInTheAlps\RestRoutingBundle\Routing\ClassResourceInterface;
 use Pixel\TownHallBundle\Common\DoctrineListRepresentationFactory;
-use Pixel\TownHallBundle\Domain\Event\ReportCreatedEvent;
-use Pixel\TownHallBundle\Domain\Event\ReportModifiedEvent;
-use Pixel\TownHallBundle\Domain\Event\ReportRemovedEvent;
-use Pixel\TownHallBundle\Entity\Report;
+use Pixel\TownHallBundle\Domain\Event\FlashInfoCreatedEvent;
+use Pixel\TownHallBundle\Domain\Event\FlashInfoModifiedEvent;
+use Pixel\TownHallBundle\Domain\Event\FlashInfoRemovedEvent;
+use Pixel\TownHallBundle\Entity\FlashInfo;
+use Pixel\TownHallBundle\Repository\FlashInfoRepository;
 use Sulu\Bundle\ActivityBundle\Application\Collector\DomainEventCollectorInterface;
 use Sulu\Bundle\MediaBundle\Media\Manager\MediaManagerInterface;
 use Sulu\Bundle\TrashBundle\Application\TrashManager\TrashManagerInterface;
@@ -31,112 +32,133 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
- * @RouteResource("report")
+ * @RouteResource("flash-info")
  */
-class ReportController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
+class FlashInfoController extends AbstractRestController implements ClassResourceInterface, SecuredControllerInterface
 {
     use RequestParametersTrait;
 
     private DoctrineListRepresentationFactory $doctrineListRepresentationFactory;
     private EntityManagerInterface $entityManager;
     private MediaManagerInterface $mediaManager;
-    private TrashManagerInterface $trashManager;
+    private FlashInfoRepository $repository;
     private DomainEventCollectorInterface $domainEventCollector;
+    private TrashManagerInterface $trashManager;
 
     public function __construct(
         DoctrineListRepresentationFactory $doctrineListRepresentationFactory,
-        EntityManagerInterface            $entityManager,
-        MediaManagerInterface             $mediaManager,
-        ViewHandlerInterface              $viewHandler,
-        TrashManagerInterface             $trashManager,
-        DomainEventCollectorInterface     $domainEventCollector,
-        ?TokenStorageInterface            $tokenStorage = null
+        EntityManagerInterface $entityManager,
+        MediaManagerInterface $mediaManager,
+        ViewHandlerInterface $viewHandler,
+        FlashInfoRepository $repository,
+        DomainEventCollectorInterface $domainEventCollector,
+        TrashManagerInterface $trashManager,
+        ?TokenStorageInterface $tokenStorage = null
     )
     {
         $this->doctrineListRepresentationFactory = $doctrineListRepresentationFactory;
         $this->entityManager = $entityManager;
         $this->mediaManager = $mediaManager;
-        $this->trashManager = $trashManager;
+        $this->repository = $repository;
         $this->domainEventCollector = $domainEventCollector;
-
+        $this->trashManager = $trashManager;
         parent::__construct($viewHandler, $tokenStorage);
     }
 
-    public function cgetAction(): Response
+    public function cgetAction(Request $request): Response
     {
+        $locale = $request->query->get('locale');
         $listRepresentation = $this->doctrineListRepresentationFactory->createDoctrineListRepresentation(
-            Report::RESOURCE_KEY
+            FlashInfo::RESOURCE_KEY,
+            [],
+            ['locale' => $locale]
         );
 
         return $this->handleView($this->view($listRepresentation));
     }
 
-    public function getAction(int $id): Response
+    protected function load(int $id, Request $request): ?FlashInfo
     {
-        $report = $this->entityManager->getRepository(Report::class)->find($id);
-        if (!$report) {
+        return $this->repository->findById($id, (string)$this->getLocale($request));
+    }
+
+    protected function save(FlashInfo $flashInfo): void
+    {
+        $this->repository->save($flashInfo);
+    }
+
+    protected function create(Request $request): FlashInfo
+    {
+        return $this->repository->create((string)$this->getLocale($request));
+    }
+
+    public function getAction(int $id, Request $request): Response
+    {
+        $flashInfo = $this->load($id, $request);
+        if (!$flashInfo) {
             throw new NotFoundHttpException();
         }
 
-        return $this->handleView($this->view($report));
+        return $this->handleView($this->view($flashInfo));
     }
 
     public function putAction(Request $request, int $id): Response
     {
-        $report = $this->entityManager->getRepository(Report::class)->find($id);
-        if (!$report) {
+        $flashInfo = $this->load($id, $request);
+        if (!$flashInfo) {
             throw new NotFoundHttpException();
         }
 
         $data = $request->request->all();
-        $this->mapDataToEntity($data, $report);
+        $this->mapDataToEntity($data, $flashInfo);
         $this->domainEventCollector->collect(
-            new ReportModifiedEvent($report, $data)
+            new FlashInfoModifiedEvent($flashInfo, $data)
         );
         $this->entityManager->flush();
-        return $this->handleView($this->view($report));
+        $this->save($flashInfo);
+        return $this->handleView($this->view($flashInfo));
     }
 
     /**
      * @param array<string, mixed> $data
      */
-    protected function mapDataToEntity(array $data, Report $entity): void
+    protected function mapDataToEntity(array $data, FlashInfo $entity): void
     {
-        $documentId = $data['document']['id'] ?? null;
-        $title = $data['title'] ?? null;
-        $description = $data['description'] ?? null;
+        $coverId = $data['cover']['id'] ?? null;
+        $document = $data['document'] ?? null;
         $isActive = $data['isActive'] ?? null;
-        $entity->setTitle($title);
+
+        $entity->setTitle($data['title']);
+        $entity->setCover($coverId ? $this->mediaManager->getEntityById($coverId) : null);
+        $entity->setDescription($data['description']);
+        $entity->setPdfs($document);
         $entity->setIsActive($isActive);
-        $entity->setDescription($description);
-        $entity->setDateReport(new \DateTimeImmutable($data['dateReport']));
-        $entity->setDocument($documentId ? $this->mediaManager->getEntityById($documentId) : null);
     }
 
     public function postAction(Request $request): Response
     {
-        $report = new Report();
+        $flashInfo = $this->create($request);
         $data = $request->request->all();
-        $this->mapDataToEntity($data, $report);
-        $this->entityManager->persist($report);
+        $this->mapDataToEntity($data, $flashInfo);
+        $this->save($flashInfo);
         $this->domainEventCollector->collect(
-            new ReportCreatedEvent($report, $data)
+            new FlashInfoCreatedEvent($flashInfo, $data)
         );
         $this->entityManager->flush();
 
-        return $this->handleView($this->view($report, 201));
+        return $this->handleView($this->view($flashInfo, 201));
     }
 
     public function deleteAction(int $id): Response
     {
-        /** @var Report $report */
-        $report = $this->entityManager->getRepository(Report::class)->find($id);
-        $reportTitle = $report->getTitle();
-        if ($report) {
-            $this->trashManager->store(Report::RESOURCE_KEY, $report);
-            $this->entityManager->remove($report);
+        /** @var FlashInfo $flashInfo */
+        $flashInfo = $this->entityManager->getRepository(FlashInfo::class)->find($id);
+        $flashInfoTitle = $flashInfo->getTitle();
+        if ($flashInfo) {
+            $this->trashManager->store(FlashInfo::RESOURCE_KEY, $flashInfo);
+            $this->entityManager->remove($flashInfo);
             $this->domainEventCollector->collect(
-                new ReportRemovedEvent($id, $reportTitle)
+                new FlashInfoRemovedEvent($id, $flashInfoTitle)
             );
         }
         $this->entityManager->flush();
@@ -144,13 +166,8 @@ class ReportController extends AbstractRestController implements ClassResourceIn
         return $this->handleView($this->view(null, 204));
     }
 
-    public function getSecurityContext(): string
-    {
-        return Report::SECURITY_CONTEXT;
-    }
-
     /**
-     * @Rest\Post("/report/{id}")
+     * @Rest\Post("/flash-infos/{id}")
      *
      * @throws ORMException
      * @throws OptimisticLockException
@@ -164,13 +181,13 @@ class ReportController extends AbstractRestController implements ClassResourceIn
         try {
             switch ($action) {
                 case 'enable':
-                    $item = $this->entityManager->getReference(Card::class, $id);
+                    $item = $this->entityManager->getReference(FlashInfo::class, $id);
                     $item->setIsActive(true);
                     $this->entityManager->persist($item);
                     $this->entityManager->flush();
                     break;
                 case 'disable':
-                    $item = $this->entityManager->getReference(Card::class, $id);
+                    $item = $this->entityManager->getReference(FlashInfo::class, $id);
                     $item->setIsActive(false);
                     $this->entityManager->persist($item);
                     $this->entityManager->flush();
@@ -185,5 +202,10 @@ class ReportController extends AbstractRestController implements ClassResourceIn
         }
 
         return $this->handleView($this->view($item));
+    }
+
+    public function getSecurityContext(): string
+    {
+        return FlashInfo::SECURITY_CONTEXT;
     }
 }

@@ -25,9 +25,14 @@
   "townhall_procedure.externalLink": "Lien externe",
   "townhall_procedure.list": "Liste des démarches",
   "townhall_procedure.empty": "Sélectionner une démarche",
+  "townhall.flash_info": "Flash info",
+  "townhall.flash_info.list": "Liste des flash infos",
+  "townhall.flash_info.empty": "Sélectionner un flash info",
+  "townhall.flash_info.publishedAt": "Publié le",
   "sulu_activity.resource.reports": "Comptes-rendus",
   "sulu_activity.resource.bulletins": "Bulletins",
   "sulu_activity.resource.procedures": "Démarches administratives",
+  "sulu_activity.resource.flash_infos": "Flash info",
   "sulu_activity.description.reports.created": "{userFullName} a créé le compte-rendu \"{resourceTitle}\"",
   "sulu_activity.description.reports.modified": "{userFullName} a modifié le compte-rendu \"{resourceTitle}\"",
   "sulu_activity.description.reports.removed": "{userFullName} a supprimé le compte-rendu \"{resourceTitle}\"",
@@ -39,5 +44,9 @@
   "sulu_activity.description.procedures.created": "{userFullName} a créé la démarche \"{resourceTitle}\"",
   "sulu_activity.description.procedures.modified": "{userFullName} a modifié la démarche \"{resourceTitle}\"",
   "sulu_activity.description.procedures.removed": "{userFullName} a supprimé la démarche \"{resourceTitle}\"",
-  "sulu_activity.description.procedures.restored": "{userFullName} a restauré la démarche \"{resourceTitle}\""
+  "sulu_activity.description.procedures.restored": "{userFullName} a restauré la démarche \"{resourceTitle}\"",
+  "sulu_activity.description.flash_infos.created": "{userFullName} a créé l'info flash \"{resourceTitle}\"",
+  "sulu_activity.description.flash_infos.modified": "{userFullName} a modifié l'info flash \"{resourceTitle}\"",
+  "sulu_activity.description.flash_infos.removed": "{userFullName} a supprimé l'info flash \"{resourceTitle}\"",
+  "sulu_activity.description.flash_infos.restored": "{userFullName} a restauré l'info flash \"{resourceTitle}\""
 }

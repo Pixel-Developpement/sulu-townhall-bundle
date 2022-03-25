@@ -3,19 +3,19 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
 >
-    <key>report_details</key>
+    <key>flash_info_details</key>
     <properties>
-        <property name="title" type="text_line" colspan="11">
+        <property name="title" type="text_line" colspan="12" mandatory="true">
             <meta>
                 <title>townhall.title</title>
             </meta>
         </property>
-        <property name="dateReport" type="date" mandatory="true" colspan="6">
+        <property name="cover" type="single_media_selection" mandatory="true" colspan="6">
             <meta>
-                <title>townhall.date</title>
+                <title>townhall.cover</title>
             </meta>
         </property>
-        <property name="document"  type="single_media_selection" colspan="6">
+        <property name="document"  type="media_selection" colspan="6">
             <meta>
                 <title>townhall.document</title>
             </meta>
@@ -23,7 +23,7 @@
                 <param name="types" value="document"/>
             </params>
         </property>
-        <property name="description" type="text_editor">
+        <property name="description" type="text_editor" mandatory="true">
             <meta>
                 <title>townhall.description</title>
             </meta>

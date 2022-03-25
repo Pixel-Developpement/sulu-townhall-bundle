@@ -100,7 +100,7 @@ class ProcedureController extends AbstractRestController implements ClassResourc
         if (!$procedure) {
             throw new NotFoundHttpException();
         }
-        dump($procedure);
+
 
         return $this->handleView($this->view($procedure));
     }
@@ -138,6 +138,7 @@ class ProcedureController extends AbstractRestController implements ClassResourc
         $documentId = $data['document']['id'] ?? null;
         $externalLink = $data['externalLink'] ?? null;
         $categoryId = (isset($data['category']['id'])) ? $data['category']['id'] : $data['category'];
+        $seo = (isset($data['ext']['seo'])) ? $data['ext']['seo'] : null;
 
         $entity->setTitle($data['title']);
         $entity->setState($state);
@@ -147,7 +148,7 @@ class ProcedureController extends AbstractRestController implements ClassResourc
         $entity->setExternalLink($externalLink);
         $entity->setCategory($this->categoryManager->findById($categoryId));
         $entity->setDescription($data['description']);
-        dump($entity);
+        $entity->setSeo($seo);
     }
 
     protected function updateRoutesForEntity(Procedure $entity): void
