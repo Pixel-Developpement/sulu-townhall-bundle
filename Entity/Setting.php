@@ -36,6 +36,12 @@ class Setting implements AuditableInterface
      */
     private ?string $townhallName = null;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Serializer\Expose()
+     */
+    private ?string $meteo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,6 +61,22 @@ class Setting implements AuditableInterface
     public function setTownhallName(?string $townhallName): void
     {
         $this->townhallName = $townhallName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMeteo(): ?string
+    {
+        return $this->meteo;
+    }
+
+    /**
+     * @param string|null $meteo
+     */
+    public function setMeteo(?string $meteo): void
+    {
+        $this->meteo = $meteo;
     }
 
 }

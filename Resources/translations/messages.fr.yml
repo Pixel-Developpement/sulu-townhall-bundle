@@ -2,3 +2,5 @@ alert.message: /!\La page n'est pas visible sur le site /!\
 externalLink: Lien externe
 townhall.flash_info.unpublish: Dépublier
 townhall.flash_info.publish: Publier
+townhall.procedure: Démarche administrative
+townhall.procedure.emptyProcedure: Sélectionner une démarche

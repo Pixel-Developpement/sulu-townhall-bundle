@@ -326,5 +326,12 @@
             <tag name="task.handler"/>
         </service>
 
+        <!--Link-->
+        <service id="sulu_townhall.procedure_link_provider" class="Pixel\TownHallBundle\Link\ProcedureLinkProvider">
+            <argument type="service" id="townhall.procedure_repository"/>
+            <argument type="service" id="translator.default"/>
+            <tag name="sulu.link.provider" alias="demarches"/>
+        </service>
+
     </services>
 </container>
