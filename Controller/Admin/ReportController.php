@@ -131,12 +131,12 @@ class ReportController extends AbstractRestController implements ClassResourceIn
     {
         /** @var Report $report */
         $report = $this->entityManager->getRepository(Report::class)->find($id);
-        $reportTitle = $report->getTitle();
+        $reportDate = $report->getDateReport();
         if ($report) {
             $this->trashManager->store(Report::RESOURCE_KEY, $report);
             $this->entityManager->remove($report);
             $this->domainEventCollector->collect(
-                new ReportRemovedEvent($id, $reportTitle)
+                new ReportRemovedEvent($id, $reportDate)
             );
         }
         $this->entityManager->flush();
@@ -150,7 +150,7 @@ class ReportController extends AbstractRestController implements ClassResourceIn
     }
 
     /**
-     * @Rest\Post("/report/{id}")
+     * @Rest\Post("/reports/{id}")
      *
      * @throws ORMException
      * @throws OptimisticLockException
@@ -164,13 +164,13 @@ class ReportController extends AbstractRestController implements ClassResourceIn
         try {
             switch ($action) {
                 case 'enable':
-                    $item = $this->entityManager->getReference(Card::class, $id);
+                    $item = $this->entityManager->getReference(Report::class, $id);
                     $item->setIsActive(true);
                     $this->entityManager->persist($item);
                     $this->entityManager->flush();
                     break;
                 case 'disable':
-                    $item = $this->entityManager->getReference(Card::class, $id);
+                    $item = $this->entityManager->getReference(Report::class, $id);
                     $item->setIsActive(false);
                     $this->entityManager->persist($item);
                     $this->entityManager->flush();
