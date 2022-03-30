@@ -10,5 +10,10 @@
                 <title>townhall_settings.townhallName</title>
             </meta>
         </property>
+        <property name="meteo" type="text_area">
+            <meta>
+                <title>townhall_settings.weather</title>
+            </meta>
+        </property>
     </properties>
 </form>

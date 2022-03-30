@@ -59,6 +59,7 @@ class SettingController extends AbstractRestController implements ClassResourceI
     protected function mapDataToEntity(array $data, Setting $entity): void
     {
         $entity->setTownhallName($data['townhallName']);
+        $entity->setMeteo($data['meteo']);
     }
 
     public function getSecurityContext(): string

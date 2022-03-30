@@ -10,13 +10,13 @@ use Sulu\Bundle\ActivityBundle\Domain\Event\DomainEvent;
 class ReportRemovedEvent extends DomainEvent
 {
     private int $id;
-    private string $title;
+    private \DateTimeImmutable $date;
 
-    public function __construct(int $id, string $title)
+    public function __construct(int $id, \DateTimeImmutable $date)
     {
         parent::__construct();
         $this->id = $id;
-        $this->title = $title;
+        $this->date = $date;
     }
 
     public function getEventType(): string
@@ -34,9 +34,9 @@ class ReportRemovedEvent extends DomainEvent
         return (string)$this->id;
     }
 
-    public function getResourceTitle(): ?string
+    public function getResourceDate(): \DateTimeImmutable
     {
-        return $this->title;
+        return $this->date;
     }
 
     public function getResourceSecurityContext(): ?string
