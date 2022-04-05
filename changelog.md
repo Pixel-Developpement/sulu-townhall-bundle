@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.4.3 (05/04/2022)
+
++ Ajout controlleur flash info front
+- Fix seo meta title
+
 ## 2.4.2 (30/03/2022)
 
 + Ajout de la gestion de la météo

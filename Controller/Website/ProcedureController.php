@@ -30,6 +30,13 @@ class ProcedureController extends AbstractController
 
     public function indexAction(Procedure $procedure, $attributes = [], $preview = false, $partial = false): Response
     {
+        if (!$procedure->getSeo() || (isset($procedure->getSeo()['title']) && !$procedure->getSeo()['title'])) {
+            $seo = [
+                "title" => $procedure->getTitle(),
+            ];
+
+            $procedure->setSeo($seo);
+        }
         $parameters = $this->get('sulu_website.resolver.template_attribute')->resolve([
             'procedure' => $procedure,
             'localizations' => $this->getLocalizationsArrayForEntity($procedure),
