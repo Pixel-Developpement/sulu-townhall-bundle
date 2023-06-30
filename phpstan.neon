@@ -8,5 +8,4 @@ parameters:
         - src
 
     ignoreErrors:
-        - '#Negated boolean expression is always false#'
         - '#Unable to resolve the template type T in call#'

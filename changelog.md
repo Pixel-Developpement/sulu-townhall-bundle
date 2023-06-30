@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.5 (30/06/2023)
+
+- Fix phpstan
+
 ## 2.4.4 (30/06/2023)
 
 + Compatible Sulu 2.5
