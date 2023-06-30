@@ -1,5 +1,5 @@
 {
-  "name": "pixeldev/sulu-townhallbundle",
+  "name": "pixelmairie/sulu-townhallbundle",
   "type": "sulu-bundle",
   "description": "Manage town hall for Sulu",
   "keywords": [
@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php": "^7.4 || ^8.0",
+    "php": "^8.0",
     "sulu/automation-bundle": "^2.1",
     "sulu/sulu": "^2.4",
     "symfony/config": "^4.4 || ^5.0",
@@ -42,7 +42,8 @@
   "config": {
     "sort-packages": true,
     "allow-plugins": {
-      "phpstan/extension-installer": true
+      "phpstan/extension-installer": true,
+      "php-http/discovery": true
     }
   }
 }
