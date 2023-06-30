@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd"
+>
+    <key>decree_details</key>
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title>townhall.title</title>
+            </meta>
+        </property>
+        <property name="startDate" type="date" mandatory="true" colspan="6">
+            <meta>
+                <title>townhall.decree.startDate</title>
+            </meta>
+        </property>
+        <property name="endDate" type="date" colspan="6">
+            <meta>
+                <title>townhall.decree.endDate</title>
+            </meta>
+        </property>
+        <property name="pdf"  type="single_media_selection" colspan="6" mandatory="true">
+            <meta>
+                <title>townhall.document</title>
+            </meta>
+            <params>
+                <param name="types" value="document"/>
+            </params>
+        </property>
+        <property name="category" type="single_category_selection" colspan="6" mandatory="true">
+            <meta>
+                <title>townhall.decree.type</title>
+            </meta>
+            <params>
+                <param name="request_parameters" type="collection">
+                    <param name="rootKey" value="decrees"/>
+                </param>
+            </params>
+        </property>
+        <property name="description" type="text_editor">
+            <meta>
+                <title>townhall.description</title>
+            </meta>
+        </property>
+    </properties>
+</form>

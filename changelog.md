@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.4.4 (30/06/2023)
+
++ Compatible Sulu 2.5
++ Ajout des arrêtés
++ Ajout CI
+
 ## 2.4.3 (05/04/2022)
 
 + Ajout controlleur flash info front
