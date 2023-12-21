@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ProcedureController extends AbstractController
 {
     /**
-     * @return string[]
+     * @return array<mixed>
      */
     public static function getSubscribedServices()
     {
@@ -41,7 +41,7 @@ class ProcedureController extends AbstractController
 
             $procedure->setSeo($seo);
         }
-        $parameters = $this->get('sulu_website.resolver.template_attribute')->resolve([
+        $parameters = $this->container->get('sulu_website.resolver.template_attribute')->resolve([
             'procedure' => $procedure,
             'localizations' => $this->getLocalizationsArrayForEntity($procedure),
         ]);
@@ -74,11 +74,11 @@ class ProcedureController extends AbstractController
      */
     protected function getLocalizationsArrayForEntity(Procedure $entity): array
     {
-        $routes = $this->get('sulu.repository.route')->findAllByEntity(Procedure::class, (string) $entity->getId());
+        $routes = $this->container->get('sulu.repository.route')->findAllByEntity(Procedure::class, (string) $entity->getId());
 
         $localizations = [];
         foreach ($routes as $route) {
-            $url = $this->get('sulu_core.webspace.webspace_manager')->findUrlByResourceLocator(
+            $url = $this->container->get('sulu_core.webspace.webspace_manager')->findUrlByResourceLocator(
                 $route->getPath(),
                 null,
                 $route->getLocale()
@@ -102,7 +102,7 @@ class ProcedureController extends AbstractController
      */
     protected function renderBlock($template, $block, $attributes = []): string
     {
-        $twig = $this->get('twig');
+        $twig = $this->container->get('twig');
         $attributes = $twig->mergeGlobals($attributes);
 
         $template = $twig->load($template);
@@ -131,7 +131,6 @@ class ProcedureController extends AbstractController
     {
         $parameters['previewParentTemplate'] = $view;
         $parameters['previewContentReplacer'] = Preview::CONTENT_REPLACER;
-        //$album = $parameters['album'];
 
         return $this->renderView('@SuluWebsite/Preview/preview.html.twig', $parameters);
     }
