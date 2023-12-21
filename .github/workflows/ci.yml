@@ -30,7 +30,7 @@ jobs:
         run: composer install --no-interaction --no-progress
 
       - name: Check for vulnerabilities
-        uses: symfonycorp/security-checker-action@v4
+        uses: symfonycorp/security-checker-action@v5
 
       - name: Run Easy Coding Standard
         run: vendor/bin/ecs check src
