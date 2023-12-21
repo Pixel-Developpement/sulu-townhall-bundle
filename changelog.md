@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0 (21/12/2023)
+
++ Ajout des délibérations
+
 ## 2.4.5 (30/06/2023)
 
 - Fix phpstan
