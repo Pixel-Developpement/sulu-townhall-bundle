@@ -83,6 +83,12 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                                 'list' => 'townhall.get_public-markets',
                             ],
                         ],
+                        'deliberations' => [
+                            'routes' => [
+                                'detail' => 'townhall.get_deliberation',
+                                'list' => 'townhall.get_deliberations',
+                            ],
+                        ],
                     ],
                     'field_type_options' => [
                         'selection' => [

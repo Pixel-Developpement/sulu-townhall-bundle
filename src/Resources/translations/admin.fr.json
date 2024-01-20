@@ -45,11 +45,13 @@
   "townhall.documents": "Documents",
   "townhall.public_market.list": "Liste des marchés publics",
   "townhall.public_market.emptyText": "Sélectionner un marché public",
+  "townhall.deliberations": "Délibérations",
   "sulu_activity.resource.reports": "Comptes-rendus",
   "sulu_activity.resource.bulletins": "Bulletins",
   "sulu_activity.resource.procedures": "Démarches administratives",
   "sulu_activity.resource.flash_infos": "Flash info",
   "sulu_activity.resource.decrees": "Arrêté",
+  "sulu_activity.resource.deliberations": "Délibérations",
   "sulu_activity.resource.publics_markets": "Marché public",
   "sulu_activity.description.reports.created": "{userFullName} a créé le compte-rendu \"{resourceTitle}\"",
   "sulu_activity.description.reports.modified": "{userFullName} a modifié le compte-rendu \"{resourceTitle}\"",
@@ -74,5 +76,9 @@
   "sulu_activity.description.publics_markets.created": "{userFullName} a créé le marché public \"{resourceTitle}\"",
   "sulu_activity.description.publics_markets.modified": "{userFullName} a modifié le marché public \"{resourceTitle}\"",
   "sulu_activity.description.publics_markets.removed": "{userFullName} a supprimé le marché public \"{resourceTitle}\"",
-  "sulu_activity.description.publics_markets.restored": "{userFullName} a restauré le marché public \"{resourceTitle}\""
+  "sulu_activity.description.publics_markets.restored": "{userFullName} a restauré le marché public \"{resourceTitle}\"",
+  "sulu_activity.description.deliberations.created": "{userFullName} a créé la délibération \"{resourceTitle}\"",
+  "sulu_activity.description.deliberations.modified": "{userFullName} a modifié la délibération \"{resourceTitle}\"",
+  "sulu_activity.description.deliberations.removed": "{userFullName} a supprimé la délibération \"{resourceTitle}\"",
+  "sulu_activity.description.deliberations.restored": "{userFullName} a restauré la délibération \"{resourceTitle}\""
 }
