@@ -1,6 +1,8 @@
 # Town Hall Bundle
 
 ![GitHub release (with filter)](https://img.shields.io/github/v/release/Pixel-Mairie/sulu-townhallbundle) [![Dependency](https://img.shields.io/badge/sulu-2.5-cca000.svg)](https://sulu.io/) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Pixel-Mairie_sulu-townhallbundle&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Pixel-Mairie_sulu-townhallbundle)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/Pixel-Mairie/sulu-townhallbundle?style=for-the-badge)
+[![Dependency](https://img.shields.io/badge/sulu-2.5-cca000.svg?style=for-the-badge)](https://sulu.io/)
 
 ## Presentation
 A Sulu bundle to manage town hall related entities.
