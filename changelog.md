@@ -1,8 +1,16 @@
 # Changelog
 
-## 2.5.0 (21/12/2023)
+## 2.5.1 (16/04/2024)
+
++ Ajout horaire ouverture
++ Ajout fonction twig pour les paramètres
+- Fix délibération
+- Fix nom de la table pour les paramètres du bundle
+
+## 2.5.0 (20/01/2024)
 
 + Ajout des délibérations
++ Maj du readme
 
 ## 2.4.5 (30/06/2023)
 

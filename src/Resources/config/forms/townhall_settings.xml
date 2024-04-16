@@ -10,9 +10,28 @@
                 <title>townhall_settings.townhallName</title>
             </meta>
         </property>
+
         <property name="meteo" type="text_area">
             <meta>
                 <title>townhall_settings.weather</title>
+            </meta>
+        </property>
+
+        <property name="email" type="text_line" colspan="6">
+            <meta>
+                <title>townhall_settings.email</title>
+            </meta>
+        </property>
+
+        <property name="phone" type="text_line" colspan="6">
+            <meta>
+                <title>townhall_settings.phone</title>
+            </meta>
+        </property>
+
+        <property name="hours" type="text_editor">
+            <meta>
+                <title>townhall_settings.hours</title>
             </meta>
         </property>
     </properties>
