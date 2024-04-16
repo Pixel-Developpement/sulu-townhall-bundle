@@ -298,7 +298,7 @@
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service">
                 <service class="Doctrine\ORM\Mapping\ClassMetadata">
-                    <argument>Pixel\TownhallBundle\Entity\Deliberation</argument>
+                    <argument>Pixel\TownHallBundle\Entity\Deliberation</argument>
                     <factory service="doctrine.orm.default_entity_manager" method="getClassMetadata"/>
                 </service>
             </argument>

@@ -9,7 +9,7 @@ use Sulu\Component\Persistence\Model\AuditableTrait;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="townall_setting")
+ * @ORM\Table(name="townhall_setting")
  * @Serializer\ExclusionPolicy("all")
  */
 class Setting implements AuditableInterface
@@ -44,6 +44,24 @@ class Setting implements AuditableInterface
      */
     private ?string $meteo = null;
 
+    /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @Serializer\Expose()
+     */
+    private ?string $email;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @Serializer\Expose()
+     */
+    private ?string $phone;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @Serializer\Expose()
+     */
+    private ?string $hours;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,5 +85,35 @@ class Setting implements AuditableInterface
     public function setMeteo(?string $meteo): void
     {
         $this->meteo = $meteo;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    public function getHours(): ?string
+    {
+        return $this->hours;
+    }
+
+    public function setHours(?string $hours): void
+    {
+        $this->hours = $hours;
     }
 }
