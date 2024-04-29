@@ -84,29 +84,29 @@ class JobOfferAdmin extends Admin
         if ($this->securityChecker->hasPermission(JobOffer::SECURITY_CONTEXT, PermissionTypes::EDIT)) {
             $viewCollection->add(
                 $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, "/job_offers")
-                ->setResourceKey(JobOffer::RESOURCE_KEY)
-                ->setListKey(JobOffer::LIST_KEY)
-                ->setTitle("townhall.job_offers")
-                ->addListAdapters(['table'])
-                ->setAddView(static::ADD_FORM_VIEW)
-                ->setEditView(static::EDIT_FORM_VIEW)
-                ->addToolbarActions($listToolbarActions)
+                    ->setResourceKey(JobOffer::RESOURCE_KEY)
+                    ->setListKey(JobOffer::LIST_KEY)
+                    ->setTitle("townhall.job_offers")
+                    ->addListAdapters(['table'])
+                    ->setAddView(static::ADD_FORM_VIEW)
+                    ->setEditView(static::EDIT_FORM_VIEW)
+                    ->addToolbarActions($listToolbarActions)
             );
 
             $viewCollection->add(
                 $this->viewBuilderFactory->createResourceTabViewBuilder(static::ADD_FORM_VIEW, "/jobOffers/add")
-                ->setResourceKey(JobOffer::RESOURCE_KEY)
-                ->setBackView(static::LIST_VIEW)
+                    ->setResourceKey(JobOffer::RESOURCE_KEY)
+                    ->setBackView(static::LIST_VIEW)
             );
 
             $viewCollection->add(
                 $this->viewBuilderFactory->createFormViewBuilder(static::ADD_FORM_VIEW_DETAILS, "/details")
-                ->setResourceKey(JobOffer::RESOURCE_KEY)
-                ->setFormKey(JobOffer::FORM_KEY)
-                ->setTabTitle("sulu_admin.details")
-                ->setEditView(static::EDIT_FORM_VIEW)
-                ->addToolbarActions($formToolbarActions)
-                ->setParent(static::ADD_FORM_VIEW)
+                    ->setResourceKey(JobOffer::RESOURCE_KEY)
+                    ->setFormKey(JobOffer::FORM_KEY)
+                    ->setTabTitle("sulu_admin.details")
+                    ->setEditView(static::EDIT_FORM_VIEW)
+                    ->addToolbarActions($formToolbarActions)
+                    ->setParent(static::ADD_FORM_VIEW)
             );
 
             $viewCollection->add(
@@ -127,7 +127,7 @@ class JobOfferAdmin extends Admin
             if ($this->activityViewBuilderFactory->hasActivityListPermission()) {
                 $viewCollection->add(
                     $this->activityViewBuilderFactory->createActivityListViewBuilder(static::EDIT_FORM_VIEW . ".activity", "/activity", JobOffer::RESOURCE_KEY)
-                    ->setParent(static::EDIT_FORM_VIEW)
+                        ->setParent(static::EDIT_FORM_VIEW)
                 );
             }
         }
@@ -142,7 +142,7 @@ class JobOfferAdmin extends Admin
                         PermissionTypes::VIEW,
                         PermissionTypes::DELETE,
                         PermissionTypes::ADD,
-                        PermissionTypes::EDIT
+                        PermissionTypes::EDIT,
                     ],
                 ],
             ],

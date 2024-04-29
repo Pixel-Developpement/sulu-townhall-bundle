@@ -92,7 +92,7 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                         'jobs_offers' => [
                             'routes' => [
                                 'detail' => 'townhall.get_job-offer',
-                                'list' => 'townhall.get_job-offers'
+                                'list' => 'townhall.get_job-offers',
                             ],
                         ],
                     ],
