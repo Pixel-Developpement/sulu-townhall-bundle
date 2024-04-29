@@ -5,8 +5,18 @@ services:
   Pixel\TownHallBundle\Controller\Website\:
     resource: '../../Controller/Website'
 
+  Pixel\TownHallBundle\Service\JobOfferService:
+    autowire: true
+    public: true
+
   Pixel\TownHallBundle\Twig\SettingsExtension:
     public: true
     autowire: true
     tags:
       - {name: twig.extension}
+
+  Pixel\TownHallBundle\Twig\JobOfferExtension:
+    public: true
+    autowire: true
+    tags:
+      - { name: twig.extension }
