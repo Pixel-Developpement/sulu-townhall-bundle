@@ -11,7 +11,7 @@ use Sulu\Component\SmartContent\ItemInterface;
  */
 class JobOfferDataItem implements ItemInterface
 {
-    private JobOffer $jobOffer;
+    private JobOffer $entity;
 
     public function __construct(JobOffer $entity)
     {

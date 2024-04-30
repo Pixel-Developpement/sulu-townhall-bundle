@@ -28,6 +28,11 @@ class JobOfferRepository extends EntityRepository implements DataProviderReposit
         return $jobOffer;
     }
 
+    /**
+     * @param string $alias
+     * @param string $locale
+     * @return void
+     */
     public function appendJoins(QueryBuilder $queryBuilder, $alias, $locale)
     {
     }

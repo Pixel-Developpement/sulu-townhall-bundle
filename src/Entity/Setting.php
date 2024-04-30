@@ -65,6 +65,7 @@ class Setting implements AuditableInterface
     /**
      * @ORM\Column(type="json", nullable=true)
      * @Serializer\Expose()
+     * @var mixed[]
      */
     private ?array $location = null;
 
@@ -123,11 +124,17 @@ class Setting implements AuditableInterface
         $this->hours = $hours;
     }
 
+    /**
+     * @return mixed[]|null
+     */
     public function getLocation(): ?array
     {
         return $this->location;
     }
 
+    /**
+     * @param mixed[]|null $location
+     */
     public function setLocation(?array $location): void
     {
         $this->location = $location;

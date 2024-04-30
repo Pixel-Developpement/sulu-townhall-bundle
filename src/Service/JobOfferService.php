@@ -6,6 +6,9 @@ use Pixel\TownHallBundle\Entity\JobOffer;
 
 class JobOfferService
 {
+    /**
+     * @return array<array<mixed>>
+     */
     public function getContractTypeValues(string $locale): array
     {
         return [

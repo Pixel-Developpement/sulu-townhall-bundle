@@ -138,9 +138,6 @@ class JobOfferController extends AbstractRestController implements ClassResource
 
     /**
      * @Rest\Post("/job-offers/{id}")
-     * @throws ORMException
-     * @throws OptimisticLockException
-     * @throws EntityNotFoundException
      */
     public function postTriggerAction(int $id, Request $request): Response
     {
@@ -171,6 +168,9 @@ class JobOfferController extends AbstractRestController implements ClassResource
         return $this->handleView($this->view($item));
     }
 
+    /**
+     * @param array<mixed> $data
+     */
     protected function mapDataToEntity(array $data, JobOffer $entity): void
     {
         $duration = $data['duration'] ?? null;
