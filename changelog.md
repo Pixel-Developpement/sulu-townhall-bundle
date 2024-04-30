@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.5.2 (29/04/2024)
+## 2.5.2 (30/04/2024)
 
 + Ajout offre d'emploi
 + Ajout de l'adresse dans la configuration
