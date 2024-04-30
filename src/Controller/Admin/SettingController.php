@@ -62,6 +62,7 @@ class SettingController extends AbstractRestController implements ClassResourceI
         $entity->setEmail($data['email']);
         $entity->setPhone($data['phone']);
         $entity->setHours($data['hours']);
+        $entity->setLocation($data['location']);
     }
 
     public function getSecurityContext(): string

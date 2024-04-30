@@ -89,6 +89,12 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                                 'list' => 'townhall.get_deliberations',
                             ],
                         ],
+                        'jobs_offers' => [
+                            'routes' => [
+                                'detail' => 'townhall.get_job-offer',
+                                'list' => 'townhall.get_job-offers',
+                            ],
+                        ],
                     ],
                     'field_type_options' => [
                         'selection' => [

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.5.2 (30/04/2024)
+
++ Ajout offre d'emploi
++ Ajout de l'adresse dans la configuration
+
 ## 2.5.1 (16/04/2024)
 
 + Ajout horaire ouverture

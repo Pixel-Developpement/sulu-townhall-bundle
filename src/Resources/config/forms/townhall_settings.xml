@@ -34,5 +34,11 @@
                 <title>townhall_settings.hours</title>
             </meta>
         </property>
+
+        <property name="location" type="location">
+            <meta>
+                <title>townhall_settings.location</title>
+            </meta>
+        </property>
     </properties>
 </form>
