@@ -14,18 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProcedureController extends AbstractController
 {
-    /**
-     * @return array<mixed>
-     */
-    public static function getSubscribedServices()
+    private TemplateAttributeResolverInterface $templateAttributeResolver;
+
+    private RouteRepositoryInterface $routeRepository;
+
+    private WebspaceManagerInterface $webspaceManager;
+
+    public function __construct(TemplateAttributeResolverInterface $templateAttributeResolver, RouteRepositoryInterface $routeRepository, WebspaceManagerInterface $webspaceManager)
     {
-        $subscribedServices = parent::getSubscribedServices();
-
-        $subscribedServices['sulu_core.webspace.webspace_manager'] = WebspaceManagerInterface::class;
-        $subscribedServices['sulu.repository.route'] = RouteRepositoryInterface::class;
-        $subscribedServices['sulu_website.resolver.template_attribute'] = TemplateAttributeResolverInterface::class;
-
-        return $subscribedServices;
+        $this->templateAttributeResolver = $templateAttributeResolver;
+        $this->routeRepository = $routeRepository;
+        $this->webspaceManager = $webspaceManager;
     }
 
     /**
@@ -41,12 +40,12 @@ class ProcedureController extends AbstractController
 
             $procedure->setSeo($seo);
         }
-        $parameters = $this->container->get('sulu_website.resolver.template_attribute')->resolve([
+        $parameters = $this->templateAttributeResolver->resolve([
             'procedure' => $procedure,
             'localizations' => $this->getLocalizationsArrayForEntity($procedure),
         ]);
         if ($partial) {
-            $content = $this->renderBlock(
+            return $this->renderBlock(
                 '@TownHall/procedure.html.twig',
                 'content',
                 $parameters
@@ -74,11 +73,11 @@ class ProcedureController extends AbstractController
      */
     protected function getLocalizationsArrayForEntity(Procedure $entity): array
     {
-        $routes = $this->container->get('sulu.repository.route')->findAllByEntity(Procedure::class, (string) $entity->getId());
+        $routes = $this->routeRepository->findAllByEntity(Procedure::class, (string) $entity->getId());
 
         $localizations = [];
         foreach ($routes as $route) {
-            $url = $this->container->get('sulu_core.webspace.webspace_manager')->findUrlByResourceLocator(
+            $url = $this->webspaceManager->findUrlByResourceLocator(
                 $route->getPath(),
                 null,
                 $route->getLocale()
@@ -91,37 +90,6 @@ class ProcedureController extends AbstractController
         }
 
         return $localizations;
-    }
-
-    /**
-     * Returns rendered part of template specified by block.
-     *
-     * @param mixed $template
-     * @param mixed $block
-     * @param mixed $attributes
-     */
-    protected function renderBlock($template, $block, $attributes = []): string
-    {
-        $twig = $this->container->get('twig');
-        $attributes = $twig->mergeGlobals($attributes);
-
-        $template = $twig->load($template);
-
-        $level = ob_get_level();
-        ob_start();
-
-        try {
-            $rendered = $template->renderBlock($block, $attributes);
-            ob_end_clean();
-
-            return $rendered;
-        } catch (\Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-
-            throw $e;
-        }
     }
 
     /**
