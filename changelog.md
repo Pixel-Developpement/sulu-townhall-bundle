@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0 (20/06/2024)
+
++ Compatible with Sulu 2.6 and Symfony 6.4
+
 ## 2.5.2 (30/04/2024)
 
 + Ajout offre d'emploi

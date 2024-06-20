@@ -41,7 +41,6 @@ class PublicMarketObjectProvider implements PreviewObjectProviderInterface
         $seo = (isset($data['ext']['seo'])) ? $data['ext']['seo'] : null;
 
         $object->setTitle($data['title']);
-        $object->setStatus($data['status']);
         $object->setRoutePath($data['routePath']);
         $object->setDescription($data['description']);
         $object->setDocuments($documents);

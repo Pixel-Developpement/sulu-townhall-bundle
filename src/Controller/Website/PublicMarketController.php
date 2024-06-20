@@ -14,17 +14,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PublicMarketController extends AbstractController
 {
-    /**
-     * @return string[]
-     */
-    public static function getSubscribedServices()
-    {
-        $subscribedServices = parent::getSubscribedServices();
-        $subscribedServices['sulu_core.webspace.webspace_manager'] = WebspaceManagerInterface::class;
-        $subscribedServices['sulu.repository.route'] = RouteRepositoryInterface::class;
-        $subscribedServices['sulu_website.resolver.template_attribute'] = TemplateAttributeResolverInterface::class;
+    private TemplateAttributeResolverInterface $templateAttributeResolver;
 
-        return $subscribedServices;
+    private RouteRepositoryInterface $routeRepository;
+
+    private WebspaceManagerInterface $webspaceManager;
+
+    public function __construct(TemplateAttributeResolverInterface $templateAttributeResolver, RouteRepositoryInterface $routeRepository, WebspaceManagerInterface $webspaceManager)
+    {
+        $this->templateAttributeResolver = $templateAttributeResolver;
+        $this->routeRepository = $routeRepository;
+        $this->webspaceManager = $webspaceManager;
     }
 
     /**
@@ -40,13 +40,13 @@ class PublicMarketController extends AbstractController
             $publicMarket->setSeo($seo);
         }
 
-        $parameters = $this->container->get('sulu_website.resolver.template_attribute')->resolve([
+        $parameters = $this->templateAttributeResolver->resolve([
             'publicMarket' => $publicMarket,
             'localizations' => $this->getLocalizationsArrayForEntity($publicMarket),
         ]);
 
         if ($partial) {
-            $content = $this->renderBlock(
+            return $this->renderBlock(
                 "@TownHall/public_market.html.twig",
                 "content",
                 $parameters
@@ -74,11 +74,11 @@ class PublicMarketController extends AbstractController
      */
     protected function getLocalizationsArrayForEntity(PublicMarket $entity): array
     {
-        $routes = $this->container->get('sulu.repository.route')->findAllByEntity(PublicMarket::class, (string) $entity->getId());
+        $routes = $this->routeRepository->findAllByEntity(PublicMarket::class, (string) $entity->getId());
 
         $localizations = [];
         foreach ($routes as $route) {
-            $url = $this->container->get('sulu_core.webspace.webspace_manager')->findUrlByResourceLocator(
+            $url = $this->webspaceManager->findUrlByResourceLocator(
                 $route->getPath(),
                 null,
                 $route->getLocale()
@@ -91,37 +91,6 @@ class PublicMarketController extends AbstractController
         }
 
         return $localizations;
-    }
-
-    /**
-     * Returns rendered part of template specified by block.
-     *
-     * @param mixed $template
-     * @param mixed $block
-     * @param mixed $attributes
-     */
-    protected function renderBlock($template, $block, $attributes = []): string
-    {
-        $twig = $this->container->get('twig');
-        $attributes = $twig->mergeGlobals($attributes);
-
-        $template = $twig->load($template);
-
-        $level = ob_get_level();
-        ob_start();
-
-        try {
-            $rendered = $template->renderBlock($block, $attributes);
-            ob_end_clean();
-
-            return $rendered;
-        } catch (\Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-
-            throw $e;
-        }
     }
 
     /**
