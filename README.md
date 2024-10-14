@@ -6,7 +6,6 @@
 A Sulu bundle to manage town hall related entities.
 
 ## Features
-* Flash info management
 * Report management
 * Bulletin management
 * Procedure management
@@ -83,12 +82,6 @@ townhall.procedures_api:
   resource: pixel_townhall.procedures_route_controller
   name_prefix: townhall.
 
-townhall.flash_infos_api:
-  type: rest
-  prefix: /admin/api
-  resource: pixel_townhall.flash-infos_route_controller
-  name_prefix: townhall.
-
 townhall.decrees_api:
   type: rest
   prefix: /admin/api
@@ -111,7 +104,6 @@ townhall.deiberations_api:
 ## Use
 
 This bundle has a lot of different parts:
-* Flash info: to display quick information about the city (road block, weather, events, ...)
 * Report: the reports of the municipal council
 * Bulletin: town hall bulletins about the city life for example
 * Procedure: the different procedures available in the town hall (ID card, passport, driving licence, ...)
@@ -127,12 +119,6 @@ Go to the "Town hall" section in the administration interface. Then, click on th
 To add, simply click on "Add". Fill the fields that are needed for your use.
 
 The fields depend on the subsection you want to edit.
-
-Flash info:
-* Title (mandatory)
-* Cover (mandatory)
-* PDF file
-* Description (mandatory)
 
 Report:
 * Title

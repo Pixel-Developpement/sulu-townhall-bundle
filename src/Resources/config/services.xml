@@ -61,22 +61,6 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="pixel_townhall.flash-infos_route_controller"
-                 class="Pixel\TownHallBundle\Controller\Admin\FlashInfoController"
-                 public="true">
-            <argument type="service"  id="pixel_townhall.list.representation"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="sulu_media.media_manager"/>
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="townhall.flash-info_repository"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-            <argument type="service" id="sulu_trash.trash_manager"/>
-            <argument type="service" id="security.token_storage"/>
-            <argument type="service" id="security.token_storage"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
         <service id="pixel_townhall.decrees_route_controller"
                  class="Pixel\TownHallBundle\Controller\Admin\DecreeController"
                  public="true">
@@ -201,16 +185,6 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="pixel_townhall.flash-info" class="Pixel\TownHallBundle\Admin\FlashInfoAdmin">
-            <argument type="service" id="sulu_admin.view_builder_factory"/>
-            <argument type="service" id="sulu_security.security_checker"/>
-            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
-            <argument type="service" id="sulu_activity.activity_list_view_builder_factory"/>
-            <argument type="service" id="sulu_automation.automation_view_builder_factory"/>
-            <tag name="sulu.admin"/>
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
         <service id="pixel_townhall.decree" class="Pixel\TownHallBundle\Admin\DecreeAdmin">
             <argument type="service" id="sulu_admin.view_builder_factory"/>
             <argument type="service" id="sulu_security.security_checker"/>
@@ -287,16 +261,6 @@
             </argument>
         </service>
 
-        <service id="townhall.flash-info_repository" class="Pixel\TownHallBundle\Repository\FlashInfoRepository" public="true" lazy="true">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service">
-                <service class="Doctrine\ORM\Mapping\ClassMetadata">
-                    <argument>Pixel\DirectoryBundle\Entity\Card</argument>
-                    <factory service="doctrine.orm.default_entity_manager" method="getClassMetadata"/>
-                </service>
-            </argument>
-        </service>
-
         <service id="townhall.decree_repository" class="Pixel\TownHallBundle\Repository\DecreeRepository" public="true" lazy="true">
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service">
@@ -358,13 +322,6 @@
             <argument type="service" id="sulu_core.array_serializer"/>
             <argument type="service" id="request_stack"/>
             <tag name="sulu.smart_content.data_provider" alias="procedure"/>
-        </service>
-
-        <service id="townhall_flash-info.smart_content.data_provider.example" class="Pixel\TownHallBundle\Content\FlashInfoDataProvider">
-            <argument type="service" id="townhall.flash-info_repository"/>
-            <argument type="service" id="sulu_core.array_serializer"/>
-            <argument type="service" id="request_stack"/>
-            <tag name="sulu.smart_content.data_provider" alias="flash-info"/>
         </service>
 
         <service id="townhall_decree.smart_content.data_provider.example" class="Pixel\TownHallBundle\Content\DecreeDataProvider">
@@ -429,18 +386,6 @@
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
 
             <tag name="sulu.content.type" alias="procedure_selection"/>
-        </service>
-
-        <service id="sulu_report.single_flash-info_selection" class="Pixel\TownHallBundle\Content\Type\SingleFlashInfoSelection">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-
-            <tag name="sulu.content.type" alias="single_flash-info_selection" />
-        </service>
-
-        <service id="sulu_report.flash-info_selection" class="Pixel\TownHallBundle\Content\Type\FlashInfoSelection">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-
-            <tag name="sulu.content.type" alias="flash-info_selection"/>
         </service>
 
         <service id="sulu_decree.single_decree_selection" class="Pixel\TownHallBundle\Content\Type\SingleDecreeSelection">
@@ -509,17 +454,6 @@
             <tag name="sulu_trash.restore_configuration_provider"/>
         </service>
 
-        <service id="sulu_procedure.flash-info_trash_item_handler" class="Pixel\TownHallBundle\Trash\FlashInfoTrashItemHandler">
-            <argument type="service" id="sulu_trash.trash_item_repository"/>
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="sulu_trash.doctrine_restore_helper"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-
-            <tag name="sulu_trash.store_trash_item_handler"/>
-            <tag name="sulu_trash.restore_trash_item_handler"/>
-            <tag name="sulu_trash.restore_configuration_provider"/>
-        </service>
-
         <service id="sulu_decree.decree_trash_item_handler" class="Pixel\TownHallBundle\Trash\DecreeTrashItemHandler">
             <argument type="service" id="sulu_trash.trash_item_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -562,19 +496,6 @@
             <tag name="sulu_trash.store_trash_item_handler"/>
             <tag name="sulu_trash.restore_trash_item_handler"/>
             <tag name="sulu_trash.restore_configuration_provider"/>
-        </service>
-
-        <!--Automation-->
-        <service id="sulu_townhall.flash-info_publish_task_handler" class="Pixel\TownHallBundle\Automation\FlashInfoPublishTaskHandler">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="translator.default"/>
-            <tag name="task.handler"/>
-        </service>
-
-        <service id="sulu_townhall.flash-info_unpublish_task_handler" class="Pixel\TownHallBundle\Automation\FlashInfoUnpublishTaskHandler">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="translator.default"/>
-            <tag name="task.handler"/>
         </service>
 
         <!--Link-->
