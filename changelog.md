@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.0 (14/10/2024)
+
+- Remove flash info for use a flash info bundle (https://github.com/Pixel-Open/sulu-flashinfobundle)
+
 ## 2.6.0 (20/06/2024)
 
 + Compatible with Sulu 2.6 and Symfony 6.4
