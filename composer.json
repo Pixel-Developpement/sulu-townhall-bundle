@@ -6,17 +6,17 @@
     "sulu",
     "suluCms"
   ],
-  "homepage": "https://github.com/Pixel-Developpement/sulu-townhall-bundle",
+  "homepage": "https://github.com/Pixel-Mairie/sulu-townhallbundle",
   "license": "MIT",
   "authors": [
     {
-      "name": "Pixel Developpement"
+      "name": "Pixel Mairie"
     }
   ],
   "require": {
     "php": "^8.0",
     "sulu/automation-bundle": "^2.1",
-    "sulu/sulu": "^2.5"
+    "sulu/sulu": "^2.6"
   },
   "require-dev": {
     "dantleech/phpcr-migrations-bundle": "^1.3",

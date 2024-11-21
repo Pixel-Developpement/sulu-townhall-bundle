@@ -24,7 +24,7 @@ A Sulu bundle to manage town hall related entities.
 
 ## Requirement
 * PHP >= 8.0
-* Sulu >= 2.5
+* Sulu >= 2.6
 * Symfony >= 5.4
 * Composer
 
