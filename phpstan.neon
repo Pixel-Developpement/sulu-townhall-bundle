@@ -9,6 +9,5 @@ parameters:
     excludePaths:
         analyse:
             - src/Controller/Website
-    ignoreErrors:
-        - '#Unable to resolve the template type T in call#'
+
 
