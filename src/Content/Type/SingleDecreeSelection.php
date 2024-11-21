@@ -46,7 +46,7 @@ class SingleDecreeSelection extends SimpleContentType implements ReferenceConten
     public function getReferences(PropertyInterface $property, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
     {
         $data = $property->getValue();
-        if (!isset($data) || !is_int($data)) {
+        if (! isset($data) || ! is_int($data)) {
             return;
         }
 

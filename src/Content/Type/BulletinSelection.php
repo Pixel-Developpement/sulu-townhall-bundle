@@ -58,7 +58,7 @@ class BulletinSelection extends SimpleContentType implements ReferenceContentTyp
     public function getReferences(PropertyInterface $property, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
     {
         $data = $property->getValue();
-        if (!isset($data) || !is_array($data)) {
+        if (! isset($data) || ! is_array($data)) {
             return;
         }
 

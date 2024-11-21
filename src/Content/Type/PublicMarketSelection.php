@@ -49,7 +49,7 @@ class PublicMarketSelection extends SimpleContentType implements ReferenceConten
     public function getReferences(PropertyInterface $property, ReferenceCollectorInterface $referenceCollector, string $propertyPrefix = ''): void
     {
         $data = $property->getValue();
-        if (!isset($data) || !is_array($data)) {
+        if (! isset($data) || ! is_array($data)) {
             return;
         }
 
