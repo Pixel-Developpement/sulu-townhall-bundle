@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.7.1 (21/11/2024)
+
++ Add references for Sulu 2.6
++ Update readme and composer
+- Fix pagesize error for PublicMarketRepository
+
 ## 2.7.0 (14/10/2024)
 
 - Remove flash info for use a flash info bundle (https://github.com/Pixel-Open/sulu-flashinfobundle)

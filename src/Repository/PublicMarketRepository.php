@@ -99,7 +99,7 @@ class PublicMarketRepository extends EntityRepository implements DataProviderRep
      * @param array<mixed> $options
      * @return array<PublicMarket>
      */
-    public function getActivePublicMarket(array $filters, string $locale, ?int $page, int $pageSize, ?int $limit, array $options): array
+    public function getActivePublicMarket(array $filters, string $locale, ?int $page, ?int $pageSize, ?int $limit, array $options): array
     {
         $pageCurrent = (key_exists('page', $options)) ? (int) $options['page'] : 0;
 
