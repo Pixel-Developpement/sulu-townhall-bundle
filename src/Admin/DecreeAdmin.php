@@ -13,6 +13,7 @@ use Sulu\Bundle\AdminBundle\Admin\View\TogglerToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ToolbarAction;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewBuilderFactoryInterface;
 use Sulu\Bundle\AdminBundle\Admin\View\ViewCollection;
+use Sulu\Bundle\ReferenceBundle\Infrastructure\Sulu\Admin\View\ReferenceViewBuilderFactoryInterface;
 use Sulu\Component\Security\Authorization\PermissionTypes;
 use Sulu\Component\Security\Authorization\SecurityCheckerInterface;
 
@@ -34,14 +35,18 @@ class DecreeAdmin extends Admin
 
     private ActivityViewBuilderFactoryInterface $activityViewBuilderFactory;
 
+    private ReferenceViewBuilderFactoryInterface $referenceViewBuilderFactory;
+
     public function __construct(
         ViewBuilderFactoryInterface $viewBuilderFactory,
         SecurityCheckerInterface $securityChecker,
-        ActivityViewBuilderFactoryInterface $activityViewBuilderFactory
+        ActivityViewBuilderFactoryInterface $activityViewBuilderFactory,
+        ReferenceViewBuilderFactoryInterface $referenceViewBuilderFactory
     ) {
         $this->viewBuilderFactory = $viewBuilderFactory;
         $this->securityChecker = $securityChecker;
         $this->activityViewBuilderFactory = $activityViewBuilderFactory;
+        $this->referenceViewBuilderFactory = $referenceViewBuilderFactory;
     }
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
@@ -123,9 +128,17 @@ class DecreeAdmin extends Admin
                     ->addToolbarActions($formToolbarActions)
                     ->setParent(static::EDIT_FORM_VIEW)
             );
+
             if ($this->activityViewBuilderFactory->hasActivityListPermission()) {
                 $viewCollection->add(
                     $this->activityViewBuilderFactory->createActivityListViewBuilder(static::EDIT_FORM_VIEW . ".activity", "/activity", Decree::RESOURCE_KEY)
+                        ->setParent(static::EDIT_FORM_VIEW)
+                );
+            }
+
+            if ($this->referenceViewBuilderFactory->hasReferenceListPermission()) {
+                $viewCollection->add(
+                    $this->referenceViewBuilderFactory->createReferenceListViewBuilder(static::EDIT_FORM_VIEW . "insights.reference", "/references", Decree::RESOURCE_KEY)
                         ->setParent(static::EDIT_FORM_VIEW)
                 );
             }
