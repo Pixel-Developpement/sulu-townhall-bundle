@@ -5,12 +5,10 @@ namespace Pixel\TownHallBundle\DependencyInjection;
 use Pixel\TownHallBundle\Admin\BulletinAdmin;
 use Pixel\TownHallBundle\Admin\DecreeAdmin;
 use Pixel\TownHallBundle\Admin\ProcedureAdmin;
-use Pixel\TownHallBundle\Admin\PublicMarketAdmin;
 use Pixel\TownHallBundle\Admin\ReportAdmin;
 use Pixel\TownHallBundle\Entity\Bulletin;
 use Pixel\TownHallBundle\Entity\Decree;
 use Pixel\TownHallBundle\Entity\Procedure;
-use Pixel\TownHallBundle\Entity\PublicMarket;
 use Pixel\TownHallBundle\Entity\Report;
 use Sulu\Bundle\PersistenceBundle\DependencyInjection\PersistenceExtensionTrait;
 use Symfony\Component\Config\FileLocator;
@@ -67,24 +65,6 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                             'routes' => [
                                 'detail' => 'townhall.get_decree',
                                 'list' => 'townhall.get_decrees',
-                            ],
-                        ],
-                        'publics_markets' => [
-                            'routes' => [
-                                'detail' => 'townhall.get_public-market',
-                                'list' => 'townhall.get_public-markets',
-                            ],
-                        ],
-                        'deliberations' => [
-                            'routes' => [
-                                'detail' => 'townhall.get_deliberation',
-                                'list' => 'townhall.get_deliberations',
-                            ],
-                        ],
-                        'jobs_offers' => [
-                            'routes' => [
-                                'detail' => 'townhall.get_job-offer',
-                                'list' => 'townhall.get_job-offers',
                             ],
                         ],
                     ],
@@ -167,26 +147,6 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                                         'icon' => 'fa-university',
                                         'label' => 'townhall.decrees',
                                         'overlay_title' => 'townhall.decree.list',
-                                    ],
-                                ],
-                            ],
-                            'public_market_selection' => [
-                                'default_type' => "list_overlay",
-                                'resource_key' => PublicMarket::RESOURCE_KEY,
-                                'view' => [
-                                    'name' => PublicMarketAdmin::EDIT_FORM_VIEW,
-                                    'result_to_view' => [
-                                        'id' => 'id',
-                                    ],
-                                ],
-                                'types' => [
-                                    'list_overlay' => [
-                                        'adapter' => "table",
-                                        'list_key' => PublicMarket::LIST_KEY,
-                                        'display_properties' => ['title'],
-                                        'icon' => "fa-solid fa-helmet-safety",
-                                        'label' => "townhall.publics_markets",
-                                        'overlay_title' => "townhall.publis_markets.list",
                                     ],
                                 ],
                             ],
@@ -281,30 +241,6 @@ class TownHallExtension extends Extension implements PrependExtensionInterface
                                         'icon' => 'fa-university',
                                         'empty_text' => 'townhall.decree.emptyText',
                                         'overlay_title' => 'townhall.decree.list',
-                                    ],
-                                    'auto_complete' => [
-                                        'display_property' => 'title',
-                                        'search_properties' => ['title'],
-                                    ],
-                                ],
-                            ],
-                            'single_public_market_selection' => [
-                                'default_type' => "list_overlay",
-                                'resource_key' => PublicMarket::RESOURCE_KEY,
-                                'view' => [
-                                    'name' => PublicMarketAdmin::EDIT_FORM_VIEW,
-                                    'result_to_view' => [
-                                        'id' => 'id',
-                                    ],
-                                ],
-                                'types' => [
-                                    'list_overlay' => [
-                                        'adapter' => 'table',
-                                        'list_key' => PublicMarket::LIST_KEY,
-                                        'display_properties' => ['title'],
-                                        'icon' => "fa-helmet-safety",
-                                        'empty_text' => "townhall.public_market.emptyText",
-                                        'overlay_title' => "townhall.public_market.list",
                                     ],
                                     'auto_complete' => [
                                         'display_property' => 'title',
