@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0 (12/07/2024)
+
++ Remove deliberation, job and public market
++ Update readme
+
 ## 2.7.1 (21/11/2024)
 
 + Add references for Sulu 2.6
