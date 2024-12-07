@@ -1,7 +1,7 @@
 {
   "name": "pixelmairie/sulu-townhallbundle",
   "type": "sulu-bundle",
-  "description": "Manage town hall for Sulu",
+  "description": "Manage town hall for Sulu CMS",
   "keywords": [
     "sulu",
     "suluCms"
@@ -14,9 +14,10 @@
     }
   ],
   "require": {
-    "php": "^8.0",
+    "php": "^8.2",
     "sulu/automation-bundle": "^2.1",
-    "sulu/sulu": "^2.6"
+    "sulu/sulu": "^2.6",
+    "symfony/framework-bundle": "^6.0"
   },
   "require-dev": {
     "dantleech/phpcr-migrations-bundle": "^1.3",

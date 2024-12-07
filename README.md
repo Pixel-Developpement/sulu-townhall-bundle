@@ -1,11 +1,23 @@
-# Town Hall Bundle
+<p align="center">
+<img src="src/Resources/documentation/logo.svg" width="250">
+</p>
+<h1 align="center">
+Town Hall Bundle for Sulu CMS
+</h1>
+<div align="center">
 
-![GitHub release (with filter)](https://img.shields.io/github/v/release/Pixel-Mairie/sulu-townhallbundle) [![Dependency](https://img.shields.io/badge/sulu-2.5-cca000.svg)](https://sulu.io/) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Pixel-Mairie_sulu-townhallbundle&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Pixel-Mairie_sulu-townhallbundle)
+![GitHub release (with filter)](https://img.shields.io/github/v/release/Pixel-Mairie/sulu-townhallbundle)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-green)](https://php.net/)
+[![Dependency](https://img.shields.io/badge/sulu-%3E%3D%202.6-green.svg)](https://sulu.io/)
+[![Dependency](https://img.shields.io/badge/symfony-%3E%3D%206.4-green.svg)](https://symfony.com//)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Pixel-Mairie_sulu-townhallbundle&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Pixel-Mairie_sulu-townhallbundle)
 
-## Presentation
+</div>
+
+## 📝 Presentation
 A Sulu bundle to manage town hall related entities.
 
-## Features
+## ✅ Features
 * Report management
 * Bulletin management
 * Procedure management
@@ -20,13 +32,7 @@ A Sulu bundle to manage town hall related entities.
 * Automation
 * Search
 
-## Requirement
-* PHP >= 8.0
-* Sulu >= 2.6
-* Symfony >= 5.4
-* Composer
-
-## Installation
+## 🚀 Installation
 ### Install the bundle
 
 Execute the following [composer](https://getcomposer.org/) command to add the bundle to the dependencies of your
@@ -87,7 +93,7 @@ townhall.decrees_api:
   name_prefix: townhall.
 ``` 
 
-## Use
+## 👍 Use
 
 This bundle has a lot of different parts:
 * Report: the reports of the municipal council
@@ -206,7 +212,7 @@ class MeteoController extends AbstractController
 }
 ```
 
-## Contributing
+## 🤝 Contributing
 
 You can contribute to this bundle. The only thing you must do is respect the coding standard we implement.
 You can find them in the `ecs.php` file.
