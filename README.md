@@ -10,8 +10,6 @@ A Sulu bundle to manage town hall related entities.
 * Bulletin management
 * Procedure management
 * Decree management
-* Public market management
-* Deliberation management
 * List of entities (via smart content)
 * Preview
 * Translation
@@ -87,18 +85,6 @@ townhall.decrees_api:
   prefix: /admin/api
   resource: pixel_townhall.decrees_route_controller
   name_prefix: townhall.
-
-townhall.publics_markets_api:
-  type: rest
-  prefix: /admin/api
-  resource: pixel_townhall.publics_markets_route_controller
-  name_prefix: townhall.
-
-townhall.deiberations_api:
-  type: rest
-  prefix: /admin/api
-  resource: pixel_townhall.deliberations_route_controller
-  name_prefix: townhall.
 ``` 
 
 ## Use
@@ -108,8 +94,6 @@ This bundle has a lot of different parts:
 * Bulletin: town hall bulletins about the city life for example
 * Procedure: the different procedures available in the town hall (ID card, passport, driving licence, ...)
 * Decree: the municipal or prefectoral decrees
-* Public market: the different public market (road working, housing construction) offered by the town hall
-* Deliberation: the deliberations of the town hall
 
 The following sections will present globally how to interact with the bundle as it is the same for each entity.
 When needed, a more specific presentation will be done.
@@ -150,20 +134,6 @@ Decree:
 * Type of decree (mandatory)
 * Description
 
-Public market:
-* Title (mandatory)
-* URL (mandatory and filled automatically according to the title)
-* Published at (filled manually)
-* Status (mandatory)
-* Description (mandatory)
-* List of documents
-
-Deliberation:
-* Title (mandatory)
-* Date (mandatory)
-* PDF file (mandatory)
-* Description
-
 Once you finished, click on "Save".
 
 The entity you added is not visible on the website yet. In order to do that, click on "Activate?" or "Published?. It should be now visible for visitors.
@@ -172,7 +142,6 @@ To edit, simply click on the pencil at the left of the entity you wish to edit.
 
 Some of these entities have a preview:
 * Procedure
-* Public market
 
 ### Categories
 As you may have seen in the previous section, some entities need a category, a type or a status. These categories, types and status need to be created in a very specific way.
@@ -183,10 +152,6 @@ For the categories:
 
 For the type:
 * You **must** create a root category which **must** have its key named "decrees"
-* Then, under this root category, you create all the categories you need
-
-For the status:
-* You **must** create a root category which **must** have its key named "publics_markets"
 * Then, under this root category, you create all the categories you need
 
 ### Remove/Restore

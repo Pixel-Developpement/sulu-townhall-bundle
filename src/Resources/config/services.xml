@@ -76,53 +76,6 @@
             <tag name="sulu.context" context="admin"/>
         </service>
 
-        <service id="pixel_townhall.publics_markets_route_controller"
-                 class="Pixel\TownHallBundle\Controller\Admin\PublicMarketController"
-                 public="true">
-            <argument type="service" id="pixel_townhall.list.representation"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="townhall.public_market_repository"/>
-            <argument type="service" id="sulu_category.category_manager"/>
-            <argument type="service" id="sulu_route.manager.route_manager"/>
-            <argument type="service" id="sulu.repository.route"/>
-            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-            <argument type="service" id="sulu_trash.trash_manager"/>
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="security.token_storage"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <service id="pixel_townhall.deliberations_route_controller"
-                 class="Pixel\TownHallBundle\Controller\Admin\DeliberationController"
-                 public="true">
-            <argument type="service" id="pixel_townhall.list.representation"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="sulu_media.media_manager"/>
-            <argument type="service" id="sulu_trash.trash_manager"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="security.token_storage"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <service id="pixel_townhall.jobs_offers_route_controller"
-                 class="Pixel\TownHallBundle\Controller\Admin\JobOfferController"
-                 public="true">
-            <argument type="service" id="pixel_townhall.list.representation"/>
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-            <argument type="service" id="townhall.job_offer_repository"/>
-            <argument type="service" id="sulu_media.media_manager"/>
-            <argument type="service" id="sulu_trash.trash_manager"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-            <argument type="service" id="fos_rest.view_handler.default"/>
-            <argument type="service" id="security.token_storage"/>
-
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
         <!-- Preview -->
 
         <service id="pixel_townhall.procedure_object_provider"
@@ -133,22 +86,10 @@
             <tag name="sulu_preview.object_provider" provider-key="procedures"/>
         </service>
 
-        <service id="pixel_townhall.public_market_object_provider"
-                 class="Pixel\TownHallBundle\Preview\PublicMarketObjectProvider"
-                 public="true">
-            <argument type="service" id="townhall.public_market_repository"/>
-            <tag name="sulu_preview.object_provider" provider-key="publics_markets"/>
-        </service>
-
         <!-- Routing -->
 
         <service id="sulu_procedure.routing_provider" public="true" class="Pixel\TownHallBundle\Routing\ProcedureRouteDefaultsProvider">
             <argument type="service" id="townhall.procedure_repository"/>
-            <tag name="sulu_route.defaults_provider"/>
-        </service>
-
-        <service id="sulu_public_market.routing_provider" public="true" class="Pixel\TownHallBundle\Routing\PublicMarketRouteDefaultsProvider">
-            <argument type="service" id="townhall.public_market_repository"/>
             <tag name="sulu_route.defaults_provider"/>
         </service>
 
@@ -193,32 +134,6 @@
             <argument type="service" id="sulu_security.security_checker"/>
             <argument type="service" id="sulu_activity.activity_list_view_builder_factory"/>
             <argument type="service" id="sulu_reference.reference_list_view_builder_factory"/>
-            <tag name="sulu.admin"/>
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <service id="pixel_townhall.public_market" class="Pixel\TownHallBundle\Admin\PublicMarketAdmin">
-            <argument type="service" id="sulu_admin.view_builder_factory"/>
-            <argument type="service" id="sulu_security.security_checker"/>
-            <argument type="service" id="sulu_core.webspace.webspace_manager"/>
-            <argument type="service" id="sulu_activity.activity_list_view_builder_factory"/>
-            <argument type="service" id="sulu_reference.reference_list_view_builder_factory"/>
-            <tag name="sulu.admin"/>
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <service id="pixel_townhall.deliberation" class="Pixel\TownHallBundle\Admin\DeliberationAdmin">
-            <argument type="service" id="sulu_admin.view_builder_factory"/>
-            <argument type="service" id="sulu_security.security_checker"/>
-            <argument type="service" id="sulu_activity.activity_list_view_builder_factory"/>
-            <tag name="sulu.admin"/>
-            <tag name="sulu.context" context="admin"/>
-        </service>
-
-        <service id="pixel_townhall.job_offer" class="Pixel\TownHallBundle\Admin\JobOfferAdmin">
-            <argument type="service" id="sulu_admin.view_builder_factory"/>
-            <argument type="service" id="sulu_security.security_checker"/>
-            <argument type="service" id="sulu_activity.activity_list_view_builder_factory"/>
             <tag name="sulu.admin"/>
             <tag name="sulu.context" context="admin"/>
         </service>
@@ -276,36 +191,6 @@
             </argument>
         </service>
 
-        <service id="townhall.public_market_repository" class="Pixel\TownHallBundle\Repository\PublicMarketRepository" public="true" lazy="true">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service">
-                <service class="Doctrine\ORM\Mapping\ClassMetadata">
-                    <argument>Pixel\TownHallBundle\Entity\PublicMarket</argument>
-                    <factory service="doctrine.orm.default_entity_manager" method="getClassMetadata"/>
-                </service>
-            </argument>
-        </service>
-
-        <service id="townhall.deliberation_repository" class="Pixel\TownHallBundle\Repository\DeliberationRepository" public="true" lazy="true">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service">
-                <service class="Doctrine\ORM\Mapping\ClassMetadata">
-                    <argument>Pixel\TownHallBundle\Entity\Deliberation</argument>
-                    <factory service="doctrine.orm.default_entity_manager" method="getClassMetadata"/>
-                </service>
-            </argument>
-        </service>
-
-        <service id="townhall.job_offer_repository" class="Pixel\TownHallBundle\Repository\JobOfferRepository" public="true" lazy="true">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service">
-                <service class="Doctrine\ORM\Mapping\ClassMetadata">
-                    <argument>Pixel\TownHallBundle\Entity\JobOffer</argument>
-                    <factory service="doctrine.orm.default_entity_manager" method="getClassMetadata"/>
-                </service>
-            </argument>
-        </service>
-
         <!-- Content -->
 
         <service id="townhall_report.smart_content.data_provider.example" class="Pixel\TownHallBundle\Content\ReportDataProvider">
@@ -334,27 +219,6 @@
             <argument type="service" id="sulu_core.array_serializer"/>
             <argument type="service" id="request_stack"/>
             <tag name="sulu.smart_content.data_provider" alias="decree"/>
-        </service>
-
-        <service id="townhall_publc_market.smart_content.data_provider.example" class="Pixel\TownHallBundle\Content\PublicMarketDataProvider">
-            <argument type="service" id="townhall.public_market_repository"/>
-            <argument type="service" id="sulu_core.array_serializer"/>
-            <argument type="service" id="request_stack"/>
-            <tag name="sulu.smart_content.data_provider" alias="public_market"/>
-        </service>
-
-        <service id="townhall_deliberation.smart_content.data_provider.example" class="Pixel\TownHallBundle\Content\DeliberationDataProvider">
-            <argument type="service" id="townhall.deliberation_repository"/>
-            <argument type="service" id="sulu_core.array_serializer"/>
-            <argument type="service" id="request_stack"/>
-            <tag name="sulu.smart_content.data_provider" alias="deliberation"/>
-        </service>
-
-        <service id="townhall_job_offer.smart_content.data_provider.example" class="Pixel\TownHallBundle\Content\JobOfferDataProvider">
-            <argument type="service" id="townhall.job_offer_repository"/>
-            <argument type="service" id="sulu_core.array_serializer"/>
-            <argument type="service" id="request_stack"/>
-            <tag name="sulu.smart_content.data_provider" alias="job_offer"/>
         </service>
 
         <!-- Content/Type !-->
@@ -405,18 +269,6 @@
             <tag name="sulu.content.type" alias="decree_selection"/>
         </service>
 
-        <service id="sulu_decree.single_public_market_selection" class="Pixel\TownHallBundle\Content\Type\SinglePublicMarketSelection">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-
-            <tag name="sulu.content.type" alias="single_public_market_selection" />
-        </service>
-
-        <service id="sulu_decree.public_market_selection" class="Pixel\TownHallBundle\Content\Type\PublicMarketSelection">
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-
-            <tag name="sulu.content.type" alias="public_market_selection"/>
-        </service>
-
         <!-- Sitemap -->
 
         <service id="sulu_procedure.sitemap_provider" public="true" class="Pixel\TownHallBundle\Sitemap\ProcedureSitemapProvider">
@@ -460,39 +312,6 @@
         </service>
 
         <service id="sulu_decree.decree_trash_item_handler" class="Pixel\TownHallBundle\Trash\DecreeTrashItemHandler">
-            <argument type="service" id="sulu_trash.trash_item_repository"/>
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="sulu_trash.doctrine_restore_helper"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-
-            <tag name="sulu_trash.store_trash_item_handler"/>
-            <tag name="sulu_trash.restore_trash_item_handler"/>
-            <tag name="sulu_trash.restore_configuration_provider"/>
-        </service>
-
-        <service id="sulu_decree.public_market_trash_item_handler" class="Pixel\TownHallBundle\Trash\PublicMarketTrashItemHandler">
-            <argument type="service" id="sulu_trash.trash_item_repository"/>
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="sulu_trash.doctrine_restore_helper"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-
-            <tag name="sulu_trash.store_trash_item_handler"/>
-            <tag name="sulu_trash.restore_trash_item_handler"/>
-            <tag name="sulu_trash.restore_configuration_provider"/>
-        </service>
-
-        <service id="sulu_deliberation.deliberation_trash_item_handler" class="Pixel\TownHallBundle\Trash\DeliberationTrashItemHandler">
-            <argument type="service" id="sulu_trash.trash_item_repository"/>
-            <argument type="service" id="doctrine.orm.default_entity_manager"/>
-            <argument type="service" id="sulu_trash.doctrine_restore_helper"/>
-            <argument type="service" id="sulu_activity.domain_event_collector"/>
-
-            <tag name="sulu_trash.store_trash_item_handler"/>
-            <tag name="sulu_trash.restore_trash_item_handler"/>
-            <tag name="sulu_trash.restore_configuration_provider"/>
-        </service>
-
-        <service id="sulu_deliberation.job_offer_trash_item_handler" class="Pixel\TownHallBundle\Trash\JobOfferTrashItemHandler">
             <argument type="service" id="sulu_trash.trash_item_repository"/>
             <argument type="service" id="doctrine.orm.default_entity_manager"/>
             <argument type="service" id="sulu_trash.doctrine_restore_helper"/>
